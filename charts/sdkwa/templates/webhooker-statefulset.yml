@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-webhooker
+spec:
+  replicas: 1
+  serviceName: {{ .Release.Name }}-webhooker
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-webhooker
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-webhooker
+    spec:
+      containers:
+        - env:
+            - name: ACTIVE_PROFILE
+              value: docker
+            - name: SHARD_POOL
+              value: '0'
+            - name: RABBIT_URI
+              value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
+          image: {{ .Values.image.repository }}/webhooker:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-webhooker
+          ports:
+            - containerPort: 6002
+          {{- with .Values.warmingservice.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 6002
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 6002
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/config/app.env
+              subPath: webhooker.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-webhooker
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

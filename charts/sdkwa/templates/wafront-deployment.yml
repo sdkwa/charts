@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-wafront
+  labels:
+    app: {{ .Release.Name }}-wafront
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-wafront
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-wafront
+    spec:
+      containers:
+        - env:
+          - name: ACTIVE_PROFILE
+            value: docker
+          image: {{ .Values.image.repository }}/wafront:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: wafront
+          ports:
+            - containerPort: 3000
+          {{- with .Values.wafront.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/config/app.env
+              subPath: wafront.env
+              readOnly: false
+      hostname: wafront
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets
