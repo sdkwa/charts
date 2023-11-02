@@ -3,6 +3,34 @@ entries:
   sdkwa:
   - apiVersion: v2
     appVersion: v1.0.0
+    created: "2023-11-02T14:00:22.986058556Z"
+    dependencies:
+    - name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.11.1
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.0.13
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.17.1
+    description: "Open-source bot constructor, an alternative to Intercom, Zendesk,
+      Salesforce Service Cloud etc. \U0001F525\U0001F4AC"
+    digest: 21ea973fe9dda9e27680503f0c4f6ecd9952251f23e84c17a0b068cd13034e96
+    home: https://github.com/sdkwa/charts
+    keywords:
+    - whatsapp
+    - open source
+    - chat
+    - chatbot
+    - crm
+    name: sdkwa
+    type: application
+    urls:
+    - https://github.com/sdkwa/charts/releases/download/sdkwa-1.0.162/sdkwa-1.0.162.tgz
+    version: 1.0.162
+  - apiVersion: v2
+    appVersion: v1.0.0
     created: "2023-11-02T13:55:30.276401591Z"
     dependencies:
     - name: mysql
@@ -29,4 +57,4 @@ entries:
     urls:
     - https://github.com/sdkwa/charts/releases/download/sdkwa-1.0.161/sdkwa-1.0.161.tgz
     version: 1.0.161
-generated: "2023-11-02T13:55:30.27641174Z"
+generated: "2023-11-02T14:00:22.986074956Z"
