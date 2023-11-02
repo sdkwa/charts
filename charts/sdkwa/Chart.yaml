@@ -22,7 +22,7 @@ keywords:
 home: https://github.com/sdkwa/charts
 
 # This is the chart version.
-version: 1.0.163
+version: 1.0.164
 
 # This is the application version.
 appVersion: "v1.0.0"
