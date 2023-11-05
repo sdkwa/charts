@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-waproducer
+  labels:
+    app: {{ .Release.Name }}-waproducer
+spec:
+  replicas: {{ int .Values.waproducer.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-waproducer
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-waproducer
+    spec:
+      containers:
+        - env:
+          - name: ACTIVE_PROFILE
+            value: docker
+          - name: RABBIT_URI
+            value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
+          image: {{ .Values.image.repository }}/waproducer:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: waproducer
+          ports:
+            - containerPort: 6004
+          {{- with .Values.waproducer.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 6004
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 6004
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/config/app.env
+              subPath: waproducer.env
+              readOnly: false
+      hostname: waproducer
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

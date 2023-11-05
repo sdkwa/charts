@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: wacore-1
+spec:
+  replicas: 1
+  serviceName: wacore-1
+  selector:
+    matchLabels:
+      app: wacore-1
+  template:
+    metadata:
+      labels:
+        app: wacore-1
+    spec:
+      containers:
+        - env:
+            - name: ACTIVE_PROFILE
+              value: docker
+            - name: RABBIT_URI_MESSAGES
+              value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
+            - name: RABBIT_URI_WEBHOOKS
+              value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
+            - name: MONGODB_CONNECTION_URI
+              value: mongodb://{{ .Values.mongodb.auth.rootUser }}:{{ .Values.mongodb.auth.rootPassword }}@{{ .Release.Name }}-{{ .Values.mongodb.nameOverride}}:27017/wadb
+            - name: NODE_OPTIONS
+              value: --max-old-space-size=3000
+          image: {{ .Values.image.repository }}/wacore:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: wacore-1
+          ports:
+            - containerPort: 6001
+          {{- with .Values.wacore.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 6001
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 6001
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/config/app.env
+              subPath: wacore.env
+              readOnly: false
+      hostname: wacore-1
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

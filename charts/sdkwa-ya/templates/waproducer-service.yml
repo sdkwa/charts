@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-waproducer
+spec:
+  selector:
+    app: {{ .Release.Name }}-waproducer
+  ports:
+    - protocol: TCP
+      port: 6004
+      targetPort: 6004

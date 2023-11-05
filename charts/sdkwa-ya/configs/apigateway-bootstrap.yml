@@ -1,0 +1,8 @@
+org.jobrunr.background-job-server.enabled: true
+org.jobrunr.dashboard.enabled: false
+
+spring.cloud.config.enabled: false
+
+spring:
+  application:
+    name: apigateway
