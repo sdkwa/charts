@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-instance-service
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}--instance-service
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "998"
