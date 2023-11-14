@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-apigateway-internal
 spec:
   selector:
-    app2: {{ .Release.Name }}-apigateway
+    app: {{ .Release.Name }}
   ports:
     - protocol: TCP
       port: 8082
