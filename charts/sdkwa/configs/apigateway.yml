@@ -223,11 +223,10 @@ spring:
             - PUT
       filter:
         request-rate-limiter:
-          enabled: true
+          enabled: false
 
 
   redis:
-    enable: "false"
     database: 0
     host: localhost
     password: changeit
