@@ -224,7 +224,16 @@ spring:
       filter:
         request-rate-limiter:
           enabled: true
-          
+
+
+  redis:
+    enable: "false"
+    database: 0
+    host: localhost
+    password: changeit
+    port: 6379
+    timeout: 60000
+
 logging:
   level:
     org.springframework.cloud.gateway: WARN
