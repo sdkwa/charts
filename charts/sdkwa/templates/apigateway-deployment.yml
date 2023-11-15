@@ -8,11 +8,11 @@ spec:
   replicas: {{ int .Values.apigateway.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ .Release.Name }}-apigateway
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ .Release.Name }}-apigateway
     spec:
       containers:
         - env:

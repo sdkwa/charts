@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-wafront
+spec:
+  selector:
+    app: {{ .Release.Name }}-wafront
+  ports:
+    - name: wafront
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+status:
+  loadBalancer: {}

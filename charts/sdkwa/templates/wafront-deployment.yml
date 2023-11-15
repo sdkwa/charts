@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-wafront
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-wafront
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ .Release.Name }}-wafront
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ .Release.Name }}-wafront
     spec:
       containers:
         - env:

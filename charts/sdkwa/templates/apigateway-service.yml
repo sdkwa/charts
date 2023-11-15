@@ -4,16 +4,12 @@ metadata:
   name: {{ .Release.Name }}-apigateway
 spec:
   selector:
-    app: {{ .Release.Name }}
+    app: {{ .Release.Name }}-apigateway
   ports:
     - name: apigateway
       protocol: TCP
       port: 8080
       targetPort: 8080
-    - name: wafront
-      protocol: TCP
-      port: 3000
-      targetPort: 3000
   type: LoadBalancer
 status:
   loadBalancer: {}
