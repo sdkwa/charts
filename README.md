@@ -1,7 +1,7 @@
 # sdkwa Helm Charts
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/artifact-hub)](https://artifacthub.io/packages/helm/sdkwa/sdkwa)
 
-This repository contains helm charts for [sdkwa](https://github.com/sdkwa/sdkwa).
+This repository contains helm charts for [sdkwa](https://github.com/sdkwa/charts).
 
 ## Installation
 ```bash
