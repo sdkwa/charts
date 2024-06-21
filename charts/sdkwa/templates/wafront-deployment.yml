@@ -18,7 +18,7 @@ spec:
         - env:
           - name: ACTIVE_PROFILE
             value: docker
-          image: {{ .Values.image.repository }}/wafront:{{ .Values.image.front-tag }}
+          image: {{ .Values.image.repository }}/wafront:{{ .Values.image.fronttag }}
           imagePullPolicy: Always
           name: wafront
           ports:
