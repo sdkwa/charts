@@ -1,6 +1,7 @@
 image:
   repository: ghcr.io/sdkwa
   tag: latest
+  front-tag: sdkwa
   pullPolicy: Always
 
 services:
