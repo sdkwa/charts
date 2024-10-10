@@ -17,7 +17,7 @@ wahttpqr:
     
 waconsumer:
   enable: true
-  apiUrl: http://sdkwa-wawahttpconsumer:7002
+  apiUrl: http://sdkwa-wahttpconsumer:7002
   applyFor:
     - ReceiveNotification
     - DeleteNotification
