@@ -23,7 +23,7 @@ spec:
           name: wafront-home
           ports:
             - containerPort: 9000
-          {{- with .Values.wafront-home.resources }}
+          {{- with .Values.wafronthome.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}

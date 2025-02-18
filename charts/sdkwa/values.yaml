@@ -85,7 +85,7 @@ wacore:
 wafront:
   resources: {}
 
-wafront-home:
+wafronthome:
   resources: {}
 
 mysql:
