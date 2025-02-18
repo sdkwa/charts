@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-wafront-home
+spec:
+  selector:
+    app: {{ .Release.Name }}-wafront-home
+  ports:
+    - name: wafront-home
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: LoadBalancer
+status:
+  loadBalancer: {}
