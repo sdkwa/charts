@@ -22,7 +22,7 @@ spec:
           imagePullPolicy: Always
           name: wafront-home
           ports:
-            - containerPort: 9000
+            - containerPort: 8000
           {{- with .Values.wafronthome.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

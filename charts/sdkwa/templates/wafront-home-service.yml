@@ -8,8 +8,8 @@ spec:
   ports:
     - name: wafront-home
       protocol: TCP
-      port: 9000
-      targetPort: 9000
+      port: 8000
+      targetPort: 8000
   type: LoadBalancer
 status:
   loadBalancer: {}
