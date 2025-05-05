@@ -3,6 +3,8 @@
 
 This repository contains helm charts for [sdkwa](https://github.com/sdkwa/charts).
 
+Before installation need to generate and install secret file to your k8s cluster. See the [docker-secrets-example](./docker-secrets-example.yaml)
+
 ## Installation
 ```bash
 helm repo add sdkwa https://sdkwa.github.io/charts
