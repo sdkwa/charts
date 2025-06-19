@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: wacore-1
 spec:
-  replicas: 1
+  replicas: 2
   serviceName: wacore-1
   selector:
     matchLabels:
