@@ -134,6 +134,7 @@ wacore:
     - setSystemProxy
     - requestRegistrationCode
     - sendRegistrationCode
+    - getAuthorizationCode
 
 limits:
   swcoreMaxBodySizeMB: 100
@@ -197,6 +198,7 @@ limits:
     forwardMessages: 50
     sendRegistrationCode: 1
     requestRegistrationCode: 1
+    getAuthorizationCode: 1
 
 auth:
   enable: true
