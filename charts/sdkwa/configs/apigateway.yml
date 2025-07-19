@@ -46,6 +46,7 @@ wainstancesettings:
     - SetSettings
     - GetSettings
     - SetSystemProxy
+    - createAnonymInstance
     
 partners-method:
   applyFor:
@@ -135,6 +136,7 @@ wacore:
     - requestRegistrationCode
     - sendRegistrationCode
     - getAuthorizationCode
+    - createAnonymInstance
 
 limits:
   swcoreMaxBodySizeMB: 100
