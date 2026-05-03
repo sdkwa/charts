@@ -1,8 +1,8 @@
 apiVersion: v2
 dependencies:
   - name: mysql
-    repository: https://charts.bitnami.com/bitnami
-    version: 9.11.1
+    version: "3.0.9"
+    repository: "https://groundhog2k.github.io/helm-charts/"
   - name: rabbitmq
     repository: https://charts.bitnami.com/bitnami
     version: 12.0.13

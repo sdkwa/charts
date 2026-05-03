@@ -21,8 +21,8 @@ spec:
           - name: TYPEORM_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ .Values.mysql.auth.existingSecret }}
-                key: {{ default "mysql-root-password" .Values.mysql.auth.existingSecretKey }}
+                name: {{ .Values.mysql.existingSecret }}
+                key: {{ default "mysql-root-password" .Values.mysql.existingSecretKey }}
           - name: ACTIVE_PROFILE
             value: docker
           image: {{ .Values.image.repository }}/user-service:{{ .Values.image.tag }}

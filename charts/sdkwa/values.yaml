@@ -88,14 +88,13 @@ wafront:
 wafronthome:
   resources: {}
 
+# values.yaml
 mysql:
-  # not working
-  #service.type: LoadBalancer
   nameOverride: mysql
-  auth:
-    existingSecret: sdkwa-secrets
-    database: admin
-  initdbScripts:
+  existingSecret: sdkwa-secrets
+  mysqlDatabase: "admin"
+  mysqlUser: "admin"
+  mysqlInitdbScripts:
     createdb.sql: |-
       CREATE DATABASE IF NOT EXISTS `admin`;
       CREATE DATABASE IF NOT EXISTS `wbot-warming`;
