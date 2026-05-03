@@ -91,13 +91,18 @@ wafronthome:
 # values.yaml
 mysql:
   nameOverride: mysql
-  existingSecret: sdkwa-secrets
-  mysqlDatabase: "admin"
-  mysqlUser: "admin"
-  mysqlInitdbScripts:
-    createdb.sql: |-
-      CREATE DATABASE IF NOT EXISTS `admin`;
-      CREATE DATABASE IF NOT EXISTS `wbot-warming`;
+  settings:
+    rootPassword:
+      value: "admin"
+  userDatabase:
+    name: admin
+    user:
+      value: admin
+    password:
+      value: "admin"
+  customScripts:
+    01-createdb.sh: |
+      mysql -u root -p'admin' -e "CREATE DATABASE IF NOT EXISTS `admin`; CREATE DATABASE IF NOT EXISTS `wbot-warming`;"
 
 rabbitmq:
   nameOverride: rabbitmq
